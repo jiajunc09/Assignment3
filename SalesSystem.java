@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author JUN
  */
-public class JTable extends javax.swing.JFrame{
+public class SalesSystem extends javax.swing.JFrame{
     float price = 0;
     float vtotal, vtothar;
     float vrevenue;
@@ -23,9 +23,9 @@ public class JTable extends javax.swing.JFrame{
     float vtotal2 = 0;
     
     /**
-     * Creates new form JTable
+     * Creates new form SalesSystem
      */
-    public JTable() {
+    public SalesSystem() {
         initComponents();
     }
 
@@ -50,7 +50,6 @@ public class JTable extends javax.swing.JFrame{
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         submit = new javax.swing.JButton();
-        clear = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         reset = new javax.swing.JButton();
@@ -144,14 +143,6 @@ public class JTable extends javax.swing.JFrame{
             }
         });
 
-        clear.setFont(new java.awt.Font("等线 Light", 1, 18)); // NOI18N
-        clear.setText("CLEAR CODE & QTY");
-        clear.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clearActionPerformed(evt);
-            }
-        });
-
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("等线 Light", 1, 20)); // NOI18N
         jTextArea1.setRows(5);
@@ -231,7 +222,7 @@ public class JTable extends javax.swing.JFrame{
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(Price, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
-                                .addComponent(submit))))
+                                .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 359, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(32, 32, 32)
@@ -250,7 +241,6 @@ public class JTable extends javax.swing.JFrame{
                                 .addGap(20, 20, 20)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jButton3)
-                                    .addComponent(clear)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(jLabel8)
                                         .addGap(96, 96, 96))))
@@ -277,7 +267,6 @@ public class JTable extends javax.swing.JFrame{
                     .addComponent(ProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Price, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(submit, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(clear, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(Quantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -310,93 +299,128 @@ public class JTable extends javax.swing.JFrame{
     }                                     
 
     private void ProductCodeActionPerformed(java.awt.event.ActionEvent evt) {                                            
-        Integer code;
-        code = Integer.parseInt(ProductCode.getText());
-        
-        if(code == 1){
+        String code;
+        code = ProductCode.getText();
+        try{
+        if(code.equals("1")){
            ProductName.setText("Audi_A1_1.4_TFSI");
            price = 150000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 2){
+        else if(code.equals("2")){
            ProductName.setText("Audi_A3_Sedan_1.4_TFSI");
            price = 200000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 3){
+        else if(code.equals("3")){
            ProductName.setText("BMW_740_Le_xDrive");
            price = 175000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 4){
+        else if(code.equals("4")){
            ProductName.setText("BMW_M850i_xDrive_Coupe");
            price = 220000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 5){
+        else if(code.equals("5")){
            ProductName.setText("Honda_HR-V_1.8_CVT_S");
            price = 180000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 6){
+        else if(code.equals("6")){
            ProductName.setText("Honda_Civic_Type_R");
            price = 120000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 7){
+        else if(code.equals("7")){
            ProductName.setText("Mazda_Biante_2.0_Sky_Activ-G");
            price = 145000;
            Price.setText(String.valueOf(price));
         }
-        else if(code == 8){
+        else if(code.equals("8")){
            ProductName.setText("Mazda_CX-9_2.5_Sky_Activ-G");
            price = 128000;
            Price.setText(String.valueOf(price));
         }
+        else{
+                 ProductCode.setText("");
+                 ProductName.setText("");
+                 Quantity.setText("");
+                 Price.setText("");
+                 JOptionPane.showMessageDialog(null, "Enter Correct Product Code!");
+        }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }                                           
 
     private void QuantityActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        try{
+        if(!(ProductCode.getText().equals("")||ProductCode.getText().equals(" ")||ProductCode.getText().equals("   "))){
         float total;
         total = Float.parseFloat(Quantity.getText());
         
         vtotal = total * price;
         Price.setText(String.valueOf(vtotal));
+        }
+        else{
+             Quantity.setText("");
+             JOptionPane.showMessageDialog(null, "Please Enter Product Code and Quantity Completely !");
+        }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null, e.getMessage());
+        }
     }                                        
-
+    
     private void submitMouseClicked(java.awt.event.MouseEvent evt) {                                    
         
     }                                   
 
     private void submitActionPerformed(java.awt.event.ActionEvent evt) {                                       
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try{
+        if(!((ProductCode.getText().equals(""))||(ProductName.getText().equals(""))||(Quantity.getText().equals("")))){
         model.addRow(new Object [] {ProductCode.getText(), ProductName.getText(), Quantity.getText(), "RM" + Price.getText()});
-         vtotal = Float.parseFloat(Price.getText());
+        vtotal = Float.parseFloat(Price.getText());
         vtotal2 += vtotal;
-    }                                      
-
-    private void clearActionPerformed(java.awt.event.ActionEvent evt) {                                      
         ProductCode.setText("");
         ProductName.setText("");
-        Quantity.setText("1");
+        Quantity.setText("");
         price = 0;
         vtotal2 = 0;
-        Price.setText(String.valueOf(0));
-    }                                     
+        Price.setText("");
+        }else{
+              JOptionPane.showMessageDialog(null, "Please Select Product Code and Quantity Completely !");
+        }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+    }                                      
 
     private void resetActionPerformed(java.awt.event.ActionEvent evt) {                                      
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try{
+            if(!(model.getRowCount() == 0)){
         while(model.getRowCount()>0){
             for(int i = 0; i < model.getRowCount(); i++){
                 model.removeRow(i);
                 }
         }
-        
+            }else{
+                  JOptionPane.showMessageDialog(null, "Table has been reset ! Please Submit Product Code and Quantity !");
+            }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null, e.getMessage());
+        }
                  
               
         
     }                                     
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {                                         
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+        try{
+            if(!(model.getRowCount() == 0)){
         String filePath = "VehicleSalesList.txt";
         File file = new File(filePath);
         try{
@@ -412,7 +436,13 @@ public class JTable extends javax.swing.JFrame{
             bw.close();
             fw.close();
         }catch(IOException ex){
-               java.util.logging.Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+               java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        }else{
+              JOptionPane.showMessageDialog(null, "The Table is Empty !");
+        }
+        }catch(Exception e){
+               JOptionPane.showMessageDialog(null, e.getMessage());
         }
     }                                        
 
@@ -433,7 +463,7 @@ public class JTable extends javax.swing.JFrame{
             }
             
         } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JTable.class.getName()).log(Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(Level.SEVERE, null, ex);
         }
     }                                        
 
@@ -458,20 +488,20 @@ public class JTable extends javax.swing.JFrame{
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(SalesSystem.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JTable().setVisible(true);
+                new SalesSystem().setVisible(true);
             }
         });
     }
@@ -481,7 +511,6 @@ public class JTable extends javax.swing.JFrame{
     private javax.swing.JTextField ProductCode;
     private javax.swing.JTextField ProductName;
     private javax.swing.JTextField Quantity;
-    private javax.swing.JButton clear;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
